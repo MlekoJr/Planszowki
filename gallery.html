@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Galeria - Planszówki</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="jquery.min.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const images = [
+                'images/1.jpg',
+                'images/2.jpg',
+                'images/3.jpg',
+                'images/4.jpg',
+                'images/5.jpg',
+                'images/benefits.jpg',
+                'images/choosing.jpg',
+                'images/intro.jpg',
+                'images/popular.jpg',
+                'images/types.jpg'
+            ];
+            let currentIndex = 0;
+
+            function showImage(index) {
+                document.getElementById('gallery-image').src = images[index];
+            }
+
+            function showFirstImage() {
+                currentIndex = 0;
+                showImage(currentIndex);
+            }
+
+            function showLastImage() {
+                currentIndex = images.length - 1;
+                showImage(currentIndex);
+            }
+
+            function showNextImage() {
+                currentIndex = (currentIndex < images.length - 1) ? currentIndex + 1 : 0;
+                showImage(currentIndex);
+            }
+
+            function showPreviousImage() {
+                currentIndex = (currentIndex > 0) ? currentIndex - 1 : images.length - 1;
+                showImage(currentIndex);
+            }
+
+            document.getElementById('first').addEventListener('click', showFirstImage);
+            document.getElementById('last').addEventListener('click', showLastImage);
+            document.getElementById('next').addEventListener('click', showNextImage);
+            document.getElementById('prev').addEventListener('click', showPreviousImage);
+
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'ArrowRight') {
+                    showNextImage();
+                } else if (e.key === 'ArrowLeft') {
+                    showPreviousImage();
+                }
+            });
+
+            // Initial display
+            showImage(currentIndex);
+        });
+    </script>
+</head>
+<body>
+    <header>
+        <h1>Planszówki</h1>
+        <p>Twoje centrum gier planszowych</p>
+    </header>
+    <nav>
+        <a href="index.html">Strona Główna</a>
+        <a href="about.html">O nas</a>
+        <a href="reviews.html">Recenzje</a>
+        <a href="contact.html">Ciekawostki</a>
+        <a href="form.html">Formularz</a>
+        <a href="table.html">Tabela</a>
+        <a href="converter.html">Przelicznik</a>
+        <a href="gallery.html">Galeria</a>
+        <a href="presentation.html">Prezentacja</a>
+        <a href="map.html">Mapa</a>
+        <a href="canvas.html">Canvas</a>
+    </nav>
+    <div class="info-bar">
+        <div>
+            <span>Data: </span><span id="date"></span>
+        </div>
+        <div>
+            <span>Zegar: </span><span id="clock"></span>
+        </div>
+        <div>
+            <span>Licznik odwiedzin: </span><span id="visits"></span>
+        </div>
+        <div>
+            <span>Czas spędzony na stronie: </span><span id="time-spent"></span>
+        </div>
+    </div>
+    <div class="container">
+        <h2>Galeria gier planszowych</h2>
+        <div id="gallery">
+            <button id="first">Pierwszy</button>
+            <button id="prev">Poprzedni</button>
+            <button id="next">Następny</button>
+            <button id="last">Ostatni</button>
+            <img id="gallery-image" src="" alt="Gra planszowa" style="max-width: 100%; height: auto;">
+        </div>
+    </div>
+    <div class="footer">
+        <p>&copy; 2024 Planszówki. Projekt strony internetowej wykonany w ramach zaliczenia przedmiotu MO: TIiSKwE na kierunku Energetyka. Autor:  Bartosz Mleczko</p>
+    </div>
+    <script>
+        let can, cont;
+        window.onload = function() {
+            can = document.getElementById('myCanvas');
+            updateDateTime();
+            setInterval(updateDateTime, 1000);
+            updateVisits();
+            setInterval(updateTimeSpent, 1000);
+        }
+
+        function updateDateTime() {
+            const now = new Date();
+            document.getElementById('date').innerText = now.toLocaleDateString();
+            document.getElementById('clock').innerText = now.toLocaleTimeString();
+        }
+
+        function updateVisits() {
+            if (localStorage.getItem('visits')) {
+                localStorage.setItem('visits', Number(localStorage.getItem('visits')) + 1);
+            } else {
+                localStorage.setItem('visits', 1);
+            }
+            document.getElementById('visits').innerText = localStorage.getItem('visits');
+        }
+
+        function updateTimeSpent() {
+            let startTime = sessionStorage.getItem('startTime');
+            if (!startTime) {
+                startTime = Date.now();
+                sessionStorage.setItem('startTime', startTime);
+            }
+            const currentTime = Date.now();
+            const timeSpent = Math.floor((currentTime - startTime) / 1000); // in seconds
+            document.getElementById('time-spent').innerText = timeSpent + ' sekund';
+        }
+        </script>
+        <p>
+            <br>
+            <br>
+            <br>
+            <br>
+        </p>
+</body>
+</html>

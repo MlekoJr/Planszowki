@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prezentacja - Planszówki</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="jquery.min.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const slides = [
+                `<h2>Wprowadzenie do Gier Planszowych</h2>
+                <h3>Czym są gry planszowe?</h3>
+                <p><strong>Definicja:</strong> Gry planszowe to forma rozrywki, w której gracze korzystają z planszy, pionków, kart i innych elementów.</p>
+                <p><strong>Historia:</strong> Początki gier planszowych sięgają starożytności, np. Senet w Egipcie (ok. 3500 r. p.n.e.) i Go w Chinach (ok. 2000 r. p.n.e.).</p>
+                <p><strong>Popularność:</strong> Gry planszowe zyskały na popularności w XX wieku i przeżywają renesans w XXI wieku.</p>
+                <img src="images/intro.jpg" alt="Różnorodne gry planszowe" style="width:100%; height:auto;">`,
+                
+                `<h2>Rodzaje Gier Planszowych</h2>
+                <h3>Różnorodność Gier Planszowych</h3>
+                <p><strong>Strategiczne:</strong> Wymagają planowania i taktyki (np. Szachy, Catan).</p>
+                <p><strong>Rodzinne:</strong> Łatwe do nauki, dla wszystkich grup wiekowych (np. Monopoly, Ticket to Ride).</p>
+                <p><strong>Kooperacyjne:</strong> Gracze współpracują, aby osiągnąć wspólny cel (np. Pandemic, Forbidden Island).</p>
+                <p><strong>RPG (Role-Playing Games):</strong> Gracze wcielają się w role postaci (np. Dungeons & Dragons).</p>
+                <img src="images/types.jpg" alt="Różne rodzaje gier planszowych" style="width:100%; height:auto;">`,
+                
+                `<h2>Korzyści z Grania w Gry Planszowe</h2>
+                <h3>Dlaczego warto grać w gry planszowe?</h3>
+                <p><strong>Rozwój umysłowy:</strong> Poprawiają umiejętności logicznego myślenia i rozwiązywania problemów.</p>
+                <p><strong>Interakcja społeczna:</strong> Wzmacniają więzi międzyludzkie, promują komunikację i współpracę.</p>
+                <p><strong>Zabawa i relaks:</strong> Stanowią świetną formę rozrywki i relaksu.</p>
+                <p><strong>Nauka:</strong> Wspierają rozwój edukacyjny, uczą strategii, matematyki i języka.</p>
+                <img src="images/benefits.jpg" alt="Grupa ludzi grająca w grę planszową" style="width:100%; height:auto;">`,
+                
+                `<h2>Popularne Gry Planszowe</h2>
+                <h3>Najbardziej znane gry planszowe</h3>
+                <p><strong>Catan:</strong> Gra strategiczna o osadnikach kolonizujących wyspę.</p>
+                <p><strong>Carcassonne:</strong> Gra polegająca na budowaniu miasta i zdobywaniu punktów.</p>
+                <p><strong>Ticket to Ride:</strong> Gra o budowaniu tras kolejowych na mapie.</p>
+                <p><strong>Pandemic:</strong> Kooperacyjna gra o zwalczaniu globalnej pandemii.</p>
+                <img src="images/popular.jpg" alt="Okładki popularnych gier planszowych" style="width:100%; height:auto;">`,
+                
+                `<h2>Jak Wybrać Grę Planszową?</h2>
+                <h3>Wskazówki przy wyborze gry</h3>
+                <p><strong>Grupa docelowa:</strong> Upewnij się, że gra jest odpowiednia dla wieku i liczby graczy.</p>
+                <p><strong>Czas gry:</strong> Wybierz grę, która pasuje do dostępnego czasu.</p>
+                <p><strong>Tematyka:</strong> Wybierz temat, który interesuje wszystkich graczy.</p>
+                <p><strong>Stopień skomplikowania:</strong> Zwróć uwagę na poziom trudności i czy gra jest łatwa do nauki.</p>
+                <img src="images/choosing.jpg" alt="Rodzina wybierająca grę planszową" style="width:100%; height:auto;">`
+            ];
+            let currentIndex = 0;
+
+            function showSlide(index) {
+                document.getElementById('slide').innerHTML = slides[index];
+            }
+
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'ArrowRight') {
+                    currentIndex = (currentIndex < slides.length - 1) ? currentIndex + 1 : 0;
+                    showSlide(currentIndex);
+                } else if (e.key === 'ArrowLeft') {
+                    currentIndex = (currentIndex > 0) ? currentIndex - 1 : slides.length - 1;
+                    showSlide(currentIndex);
+                }
+            });
+
+            showSlide(currentIndex);
+        });
+    </script>
+</head>
+<body>
+    <header>
+        <h1>Planszówki</h1>
+        <p>Twoje centrum gier planszowych</p>
+    </header>
+    <nav>
+        <a href="index.html">Strona Główna</a>
+        <a href="about.html">O nas</a>
+        <a href="reviews.html">Recenzje</a>
+        <a href="contact.html">Ciekawostki</a>
+        <a href="form.html">Formularz</a>
+        <a href="table.html">Tabela</a>
+        <a href="converter.html">Przelicznik</a>
+        <a href="gallery.html">Galeria</a>
+        <a href="presentation.html">Prezentacja</a>
+        <a href="map.html">Mapa</a>
+        <a href="canvas.html">Canvas</a>
+    </nav>
+    <div class="info-bar">
+        <div>
+            <span>Data: </span><span id="date"></span>
+        </div>
+        <div>
+            <span>Zegar: </span><span id="clock"></span>
+        </div>
+        <div>
+            <span>Licznik odwiedzin: </span><span id="visits"></span>
+        </div>
+        <div>
+            <span>Czas spędzony na stronie: </span><span id="time-spent"></span>
+        </div>
+    </div>
+    <div class="container">
+        <h2>Prezentacja o grach planszowych</h2>
+        <p>Przewijaj strzałkami</p>
+        <div id="slide" style="border: 1px solid #ccc; padding: 20px; min-height: 300px;"></div>
+        <p>Użyj strzałek na klawiaturze, aby poruszać się między slajdami.</p>
+    </div>
+    <div class="footer">
+        <p>&copy; 2024 Planszówki. Projekt strony internetowej wykonany w ramach zaliczenia przedmiotu MO: TIiSKwE na kierunku Energetyka. Autor: Bartosz Mleczko</p>
+    </div>
+    <script>
+        let can, cont;
+        window.onload = function() {
+            can = document.getElementById('myCanvas');
+            updateDateTime();
+            setInterval(updateDateTime, 1000);
+            updateVisits();
+            setInterval(updateTimeSpent, 1000);
+        }
+
+        function updateDateTime() {
+            const now = new Date();
+            document.getElementById('date').innerText = now.toLocaleDateString();
+            document.getElementById('clock').innerText = now.toLocaleTimeString();
+        }
+
+        function updateVisits() {
+            if (localStorage.getItem('visits')) {
+                localStorage.setItem('visits', Number(localStorage.getItem('visits')) + 1);
+            } else {
+                localStorage.setItem('visits', 1);
+            }
+            document.getElementById('visits').innerText = localStorage.getItem('visits');
+        }
+
+        function updateTimeSpent() {
+            let startTime = sessionStorage.getItem('startTime');
+            if (!startTime) {
+                startTime = Date.now();
+                sessionStorage.setItem('startTime', startTime);
+            }
+            const currentTime = Date.now();
+            const timeSpent = Math.floor((currentTime - startTime) / 1000); // in seconds
+            document.getElementById('time-spent').innerText = timeSpent + ' sekund';
+        }
+        </script>
+</body>
+</html>

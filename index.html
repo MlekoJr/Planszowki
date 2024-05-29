@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Planszówki - Twoje centrum gier planszowych</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="jquery.min.js"></script>
+    <script src="script.js"></script>
+</head>
+<body>
+    <header>
+        <h1>Planszówki</h1>
+        <p>Twoje centrum gier planszowych</p>
+    </header>
+    <nav>
+        <a href="index.html">Strona Główna</a>
+        <a href="about.html">O nas</a>
+        <a href="reviews.html">Recenzje</a>
+        <a href="contact.html">Ciekawostki</a>
+        <a href="form.html">Formularz</a>
+        <a href="table.html">Tabela</a>
+        <a href="converter.html">Przelicznik</a>
+        <a href="gallery.html">Galeria</a>
+        <a href="presentation.html">Prezentacja</a>
+        <a href="map.html">Mapa</a>
+        <a href="canvas.html">Canvas</a>
+    </nav>
+    <div class="info-bar">
+        <div>
+            <span>Data: </span><span id="date"></span>
+        </div>
+        <div>
+            <span>Zegar: </span><span id="clock"></span>
+        </div>
+        <div>
+            <span>Licznik odwiedzin: </span><span id="visits"></span>
+        </div>
+        <div>
+            <span>Czas spędzony na stronie: </span><span id="time-spent"></span>
+        </div>
+    </div>
+    <div class="container">
+        <h2>Witamy na Planszówki</h2>
+        <p>Znajdziesz tutaj wszystko, co związane z grami planszowymi!</p>
+
+        <h3>Czym jest planszówka?</h3>
+        <p>Planszówka to gra, w której gracze poruszają się po planszy według określonych zasad, wykonując różnorodne działania, by osiągnąć cel gry. Gry planszowe mogą mieć różne tematy i mechaniki, od prostych gier familijnych po złożone strategie wymagające wielogodzinnego zaangażowania. Są doskonałą formą rozrywki, która integruje, uczy i rozwija umiejętności strategicznego myślenia.</p>
+        
+        <h3>Dlaczego warto grać w gry planszowe?</h3>
+        <p>Gry planszowe to nie tylko świetna forma rozrywki, ale także sposób na spędzanie czasu z rodziną i przyjaciółmi, rozwijanie umiejętności analitycznych i społecznych oraz odkrywanie nowych światów i przygód. Zachęcamy do odkrywania magii gier planszowych i dołączenia do naszej społeczności graczy!</p>
+
+
+        <h3>Czym charakteryzują się gry planszowe?</h3>
+        <ol>
+            <li><strong>Różnorodność Tematów</strong><br>Gry planszowe obejmują szeroki zakres tematów, od fantastyki po historyczne symulacje. Każdy znajdzie coś, co go zainteresuje.</li>
+            <li><strong>Mechaniki Gry</strong><br>Gry planszowe oferują różnorodne mechaniki, takie jak zarządzanie zasobami, budowanie, handel, kooperacja czy rywalizacja. Wybór mechaniki wpływa na styl gry i strategię.</li>
+            <li><strong>Interakcja Między Graczami</strong><br>Jednym z kluczowych elementów gier planszowych jest interakcja między graczami, która może przybierać formę współpracy, negocjacji, rywalizacji lub zdrady.</li>
+            <li><strong>Rozwój Umiejętności</strong><br>Gry planszowe rozwijają różne umiejętności, w tym strategiczne myślenie, planowanie, komunikację, zdolności społeczne oraz kreatywność.</li>
+            <li><strong>Czas Rozgrywki</strong><br>Gry mogą trwać od kilku minut do kilku godzin, w zależności od skomplikowania zasad i liczby graczy. Dzięki temu można dobrać grę do dostępnego czasu i oczekiwań uczestników.</li>
+        </ol>
+
+        <h3>Najpopularniejsze planszówki</h3>
+        <ol>
+            <li><strong>Catan</strong><br>Gra strategiczna, w której gracze zasiedlają wyspę Catan, zbierają surowce i budują osady oraz drogi. Kluczowe elementy to handel i planowanie.</li>
+            <li><strong>Carcassonne</strong><br>Gra kafelkowa, gdzie gracze tworzą krajobraz średniowiecznej Francji, budując miasta, drogi, klasztory i pola. Proste zasady, ale wiele strategii.</li>
+            <li><strong>Ticket to Ride</strong><br>Gra polegająca na budowaniu sieci kolejowej przez Amerykę. Gracze zbierają karty i łączą miasta, rywalizując o najdłuższe trasy.</li>
+            <li><strong>Pandemic</strong><br>Kooperacyjna gra, w której gracze pracują razem, aby powstrzymać rozprzestrzenianie się czterech śmiertelnych chorób. Wymaga planowania i współpracy.</li>
+            <li><strong>Dixit</strong><br>Gra wyobraźni i skojarzeń, w której gracze używają kart z pięknymi ilustracjami, aby opowiadać historie. Celem jest odgadywanie kart na podstawie opisu.</li>
+        </ol>
+
+     </div>
+    <div class="footer">
+        <p>&copy; 2024 Planszówki. Projekt strony internetowej wykonany w ramach zaliczenia przedmiotu MO: TIiSKwE na kierunku Energetyka. Autor: Bartosz Mleczko</p>
+    </div>
+<script>
+    let can, cont;
+    window.onload = function() {
+        can = document.getElementById('myCanvas');
+        updateDateTime();
+        setInterval(updateDateTime, 1000);
+        updateVisits();
+        setInterval(updateTimeSpent, 1000);
+    }
+
+    function updateDateTime() {
+        const now = new Date();
+        document.getElementById('date').innerText = now.toLocaleDateString();
+        document.getElementById('clock').innerText = now.toLocaleTimeString();
+    }
+
+    function updateVisits() {
+        if (localStorage.getItem('visits')) {
+            localStorage.setItem('visits', Number(localStorage.getItem('visits')) + 1);
+        } else {
+            localStorage.setItem('visits', 1);
+        }
+        document.getElementById('visits').innerText = localStorage.getItem('visits');
+    }
+
+    function updateTimeSpent() {
+        let startTime = sessionStorage.getItem('startTime');
+        if (!startTime) {
+            startTime = Date.now();
+            sessionStorage.setItem('startTime', startTime);
+        }
+        const currentTime = Date.now();
+        const timeSpent = Math.floor((currentTime - startTime) / 1000); // in seconds
+        document.getElementById('time-spent').innerText = timeSpent + ' sekund';
+    }
+    </script>
+    <p>
+        <br>
+        <br>
+        <br>
+        <br>
+    </p>
+</body>
+</html>

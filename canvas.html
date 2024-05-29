@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Planszówki - Rysunek na Canvas</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            margin: 0;
+        }
+        .container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+        }
+        canvas {
+            background-color: white;
+            border: 1px dotted black;
+            display: block;
+            margin: 20px auto;
+        }
+        input {
+            font-size: 20px;
+            margin: 10px;
+        }
+        input:focus {
+            background-color: aqua;
+        }
+        h2 {
+            margin-bottom: 20px;
+        }
+        .controls {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+        .info-bar {
+            display: flex;
+            justify-content: space-around;
+            width: 100%;
+            padding: 10px;
+            background-color: #e0e0e0;
+            margin-bottom: 20px;
+        }
+        .info-bar div {
+            background-color: #f9f9f9;
+            padding: 10px;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Planszówki</h1>
+        <p>Twoje centrum gier planszowych</p>
+    </header>
+    <nav>
+        <a href="index.html">Strona Główna</a>
+        <a href="about.html">O nas</a>
+        <a href="reviews.html">Recenzje</a>
+        <a href="contact.html">Ciekawostki</a>
+        <a href="form.html">Formularz</a>
+        <a href="table.html">Tabela</a>
+        <a href="converter.html">Przelicznik</a>
+        <a href="gallery.html">Galeria</a>
+        <a href="presentation.html">Prezentacja</a>
+        <a href="map.html">Mapa</a>
+        <a href="canvas.html">Canvas</a>
+    </nav>
+    <div class="info-bar">
+        <div>
+            <span>Data: </span><span id="date"></span>
+        </div>
+        <div>
+            <span>Zegar: </span><span id="clock"></span>
+        </div>
+        <div>
+            <span>Licznik odwiedzin: </span><span id="visits"></span>
+        </div>
+        <div>
+            <span>Czas spędzony na stronie: </span><span id="time-spent"></span>
+        </div>
+    </div>
+    <div class="container">
+        <h2>CANVAS</h2>
+        <div class="controls">
+            <input type="button" value="Rysuj Szachownicę" onclick="rysujSzachownice()">
+            <input type="button" value="Rysuj Pionki" onclick="rysujPionki()">
+            <input type="button" value="Czyść" onclick="czysc()">
+            <input type="button" value="Rysuj PacMan'a" onclick="rysujPacMan()">
+            <input type="button" value="Rysuj Orła" onclick="rysujOrla()">
+        </div>
+        <canvas id="myCanvas" width="800" height="600"></canvas>
+    </div>
+    <footer class="footer">
+        <p>&copy; 2024 Planszówki. Projekt strony internetowej wykonany w ramach zaliczenia przedmiotu MO: TIiSKwE na kierunku Energetyka. Autor: Bartosz Mleczko</p>
+    </footer>
+    <script>
+        let can, cont;
+        window.onload = function() {
+            can = document.getElementById('myCanvas');
+            updateDateTime();
+            setInterval(updateDateTime, 1000);
+            updateVisits();
+            setInterval(updateTimeSpent, 1000);
+        }
+
+        function updateDateTime() {
+            const now = new Date();
+            document.getElementById('date').innerText = now.toLocaleDateString();
+            document.getElementById('clock').innerText = now.toLocaleTimeString();
+        }
+
+        function updateVisits() {
+            if (localStorage.getItem('visits')) {
+                localStorage.setItem('visits', Number(localStorage.getItem('visits')) + 1);
+            } else {
+                localStorage.setItem('visits', 1);
+            }
+            document.getElementById('visits').innerText = localStorage.getItem('visits');
+        }
+
+        function updateTimeSpent() {
+            let startTime = sessionStorage.getItem('startTime');
+            if (!startTime) {
+                startTime = Date.now();
+                sessionStorage.setItem('startTime', startTime);
+            }
+            const currentTime = Date.now();
+            const timeSpent = Math.floor((currentTime - startTime) / 1000); 
+            document.getElementById('time-spent').innerText = timeSpent + ' sekund';
+        }
+
+        function czysc() {
+            if (cont == null) {
+                cont = can.getContext('2d');
+            }
+            cont.clearRect(0, 0, can.width, can.height);
+        }
+
+        function rysujPacMan() {
+            if (cont == null) {
+                cont = can.getContext('2d');
+            }
+            cont.beginPath();
+            let x = can.width / 2, y = can.height / 2, r = can.height / 8;
+            cont.arc(x, y, r * 2, 0.2 * Math.PI, 1.8 * Math.PI);
+            cont.fillStyle = "yellow";
+            cont.strokeStyle = "yellow";
+            cont.lineTo(x, y);
+            cont.closePath();
+            cont.fill();
+            let oko_x = r / 3, oko_y = -can.height / 8, oko_r = r / 10;
+            cont.beginPath();
+            cont.fillStyle = "black";
+            cont.arc(x + oko_x, y + oko_y, oko_r * 2, 0, 2 * Math.PI);
+            cont.fill();
+            cont.stroke();
+        }
+
+        function rysujOrla() {
+            if (cont == null) {
+                cont = can.getContext('2d');
+            }
+
+            cont.beginPath();
+            cont.moveTo(450, 150);
+            cont.bezierCurveTo(400, 100, 350, 100, 300, 150); 
+            cont.lineTo(250, 200);
+            cont.lineTo(300, 250); 
+            cont.bezierCurveTo(350, 300, 400, 300, 450, 250); 
+            cont.lineTo(450, 150);
+            cont.strokeStyle = "black";
+            cont.lineWidth = 2;
+            cont.stroke();
+
+  
+            cont.beginPath();
+            cont.arc(350, 175, 10, 0, 2 * Math.PI); 
+            cont.fillStyle = "white";
+            cont.fill();
+            cont.stroke();
+
+            cont.beginPath();
+            cont.moveTo(300, 200);
+            cont.lineTo(275, 175);
+            cont.lineTo(250, 200);
+            cont.lineTo(275, 225);
+            cont.closePath();
+            cont.fillStyle = "yellow";
+            cont.fill();
+            cont.stroke();
+
+            cont.beginPath();
+            cont.moveTo(450, 250);
+            cont.lineTo(500, 300);
+            cont.lineTo(450, 350);
+            cont.lineTo(500, 400);
+            cont.lineTo(450, 450);
+            cont.lineTo(500, 500);
+            cont.lineTo(450, 550);
+            cont.lineTo(400, 500);
+            cont.lineTo(350, 550);
+            cont.lineTo(300, 500);
+            cont.lineTo(250, 550);
+            cont.lineTo(200, 500);
+            cont.lineTo(250, 450);
+            cont.lineTo(200, 400);
+            cont.lineTo(250, 350);
+            cont.lineTo(200, 300);
+            cont.lineTo(250, 250);
+            cont.lineTo(450, 250);
+            cont.stroke();
+
+            cont.beginPath();
+            cont.moveTo(250, 200);
+            cont.lineTo(100, 150);
+            cont.lineTo(250, 250);
+            cont.lineTo(100, 200);
+            cont.lineTo(250, 300);
+            cont.lineTo(100, 250);
+            cont.lineTo(250, 350);
+            cont.lineTo(100, 300);
+            cont.lineTo(250, 400);
+            cont.lineTo(100, 350);
+            cont.lineTo(250, 450);
+            cont.lineTo(100, 400);
+            cont.lineTo(250, 500);
+            cont.stroke();
+
+            cont.beginPath();
+            cont.moveTo(450, 200);
+            cont.lineTo(600, 150);
+            cont.lineTo(450, 250);
+            cont.lineTo(600, 200);
+            cont.lineTo(450, 300);
+            cont.lineTo(600, 250);
+            cont.lineTo(450, 350);
+            cont.lineTo(600, 300);
+            cont.lineTo(450, 400);
+            cont.lineTo(600, 350);
+            cont.lineTo(450, 450);
+            cont.lineTo(600, 400);
+            cont.lineTo(450, 500);
+            cont.stroke();
+        }
+
+        function rysujSzachownice() {
+            if (cont == null) {
+                cont = can.getContext('2d');
+            }
+            const size = 75; 
+            for (let i = 0; i < 8; i++) {
+                for (let j = 0; j < 8; j++) {
+                    cont.beginPath();
+                    cont.rect(i * size + 150, j * size + 50, size, size);
+                    cont.fillStyle = (i + j) % 2 === 0 ? "white" : "black";
+                    cont.fill();
+                    cont.stroke();
+                }
+            }
+        }
+
+        function rysujPionki() {
+            if (cont == null) {
+                cont = can.getContext('2d');
+            }
+            const size = 75; 
+            for (let i = 0; i < 8; i++) {
+                for (let j = 0; j < 3; j++) {
+                    if ((i + j) % 2 === 1) {
+                        rysujPionek(i * size + 150 + size / 2, j * size + 50 + size / 2, "red"); 
+                    }
+                }
+                for (let j = 5; j < 8; j++) {
+                    if ((i + j) % 2 === 1) {
+                        rysujPionek(i * size + 150 + size / 2, j * size + 50 + size / 2, "yellow"); 
+                    }
+                }
+            }
+        }
+
+        function rysujPionek(x, y, color) {
+            cont.beginPath();
+            cont.arc(x, y, 30, 0, 2 * Math.PI);
+            cont.fillStyle = color;
+            cont.fill();
+            cont.stroke();
+        }
+    </script>
+            <p>
+                <br>
+                <br>
+                <br>
+                <br>
+            </p>
+</body>
+</html>

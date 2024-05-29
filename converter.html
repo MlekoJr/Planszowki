@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Przelicznik - Planszówki</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        var chartInstance;
+
+        function calculateScore(event) {
+            event.preventDefault();
+            var param1 = parseFloat(document.getElementById('param1').value);
+            var param2 = parseFloat(document.getElementById('param2').value);
+            var param3 = parseFloat(document.getElementById('param3').value);
+            var param4 = parseFloat(document.getElementById('param4').value);
+
+            if (isNaN(param1) || isNaN(param2) || isNaN(param3) || isNaN(param4)) {
+                document.getElementById('result').innerText = 'Proszę wprowadzić wszystkie wartości.';
+            } else {
+                var result = (param1 + param2 + param3 + param4) / 4;
+                document.getElementById('result').innerText = 'Średnia ocen: ' + result.toFixed(2);
+                renderChart([param1, param2, param3, param4]);
+            }
+        }
+
+        function renderChart(data) {
+            var ctx = document.getElementById('myChart').getContext('2d');
+            if (chartInstance) {
+                chartInstance.data.datasets[0].data = data;
+                chartInstance.update();
+            } else {
+                chartInstance = new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: ['Ocena 1', 'Ocena 2', 'Ocena 3', 'Ocena 4'],
+                        datasets: [{
+                            label: 'Oceny',
+                            data: data,
+                            backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                            borderColor: 'rgba(75, 192, 192, 1)',
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        scales: {
+                            y: {
+                                beginAtZero: true
+                            }
+                        }
+                    }
+                });
+            }
+        }
+    </script>
+</head>
+<body>
+    <header>
+        <h1>Planszówki</h1>
+        <p>Twoje centrum gier planszowych</p>
+    </header>
+    <nav>
+        <a href="index.html">Strona Główna</a>
+        <a href="about.html">O nas</a>
+        <a href="reviews.html">Recenzje</a>
+        <a href="contact.html">Ciekawostki</a>
+        <a href="form.html">Formularz</a>
+        <a href="table.html">Tabela</a>
+        <a href="converter.html">Przelicznik</a>
+        <a href="gallery.html">Galeria</a>
+        <a href="presentation.html">Prezentacja</a>
+        <a href="map.html">Mapa</a>
+        <a href="canvas.html">Canvas</a>
+    </nav>
+    <div class="info-bar">
+        <div>
+            <span>Data: </span><span id="date"></span>
+        </div>
+        <div>
+            <span>Zegar: </span><span id="clock"></span>
+        </div>
+        <div>
+            <span>Licznik odwiedzin: </span><span id="visits"></span>
+        </div>
+        <div>
+            <span>Czas spędzony na stronie: </span><span id="time-spent"></span>
+        </div>
+    </div>
+    <div class="container">
+        <h2>Przelicznik średniej ocen/ocen planszówek</h2>
+        <form onsubmit="calculateScore(event);">
+            <label for="param1">Ocena 1:</label><br>
+            <input type="number" id="param1" name="param1" step="0.1" required><br><br>
+            
+            <label for="param2">Ocena 2:</label><br>
+            <input type="number" id="param2" name="param2" step="0.1" required><br><br>
+            
+            <label for="param3">Ocena 3:</label><br>
+            <input type="number" id="param3" name="param3" step="0.1" required><br><br>
+            
+            <label for="param4">Ocena 4:</label><br>
+            <input type="number" id="param4" name="param4" step="0.1" required><br><br>
+            
+            <input type="submit" value="Oblicz">
+        </form>
+        <div id="result" style="margin-top: 20px; font-size: 1.5em;"></div>
+        <canvas id="myChart" width="400" height="200" style="margin-top: 20px;"></canvas>
+    </div>
+    <div class="footer">
+        <p>&copy; 2024 Planszówki. Projekt strony internetowej wykonany w ramach zaliczenia przedmiotu MO: TIiSKwE na kierunku Energetyka. Autor: Bartosz Mleczko</p>
+    </div>
+    <script>
+        let can, cont;
+        window.onload = function() {
+            can = document.getElementById('myCanvas');
+            updateDateTime();
+            setInterval(updateDateTime, 1000);
+            updateVisits();
+            setInterval(updateTimeSpent, 1000);
+        }
+
+        function updateDateTime() {
+            const now = new Date();
+            document.getElementById('date').innerText = now.toLocaleDateString();
+            document.getElementById('clock').innerText = now.toLocaleTimeString();
+        }
+
+        function updateVisits() {
+            if (localStorage.getItem('visits')) {
+                localStorage.setItem('visits', Number(localStorage.getItem('visits')) + 1);
+            } else {
+                localStorage.setItem('visits', 1);
+            }
+            document.getElementById('visits').innerText = localStorage.getItem('visits');
+        }
+
+        function updateTimeSpent() {
+            let startTime = sessionStorage.getItem('startTime');
+            if (!startTime) {
+                startTime = Date.now();
+                sessionStorage.setItem('startTime', startTime);
+            }
+            const currentTime = Date.now();
+            const timeSpent = Math.floor((currentTime - startTime) / 1000); // in seconds
+            document.getElementById('time-spent').innerText = timeSpent + ' sekund';
+        }
+        </script>
+</body>
+</html>

@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kontakt - Planszówki</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>Planszówki</h1>
+        <p>Twoje centrum gier planszowych</p>
+    </header>
+    <nav>
+        <a href="index.html">Strona Główna</a>
+        <a href="about.html">O nas</a>
+        <a href="reviews.html">Recenzje</a>
+        <a href="contact.html">Ciekawostki</a>
+        <a href="form.html">Formularz</a>
+        <a href="table.html">Tabela</a>
+        <a href="converter.html">Przelicznik</a>
+        <a href="gallery.html">Galeria</a>
+        <a href="presentation.html">Prezentacja</a>
+        <a href="map.html">Mapa</a>
+        <a href="canvas.html">Canvas</a>
+    </nav>
+    <div class="info-bar">
+        <div>
+            <span>Data: </span><span id="date"></span>
+        </div>
+        <div>
+            <span>Zegar: </span><span id="clock"></span>
+        </div>
+        <div>
+            <span>Licznik odwiedzin: </span><span id="visits"></span>
+        </div>
+        <div>
+            <span>Czas spędzony na stronie: </span><span id="time-spent"></span>
+        </div>
+    </div>
+    <div class="container">
+        <h2>Ciekawostki</h2>
+        <h3>Ciekawostki o grach planszowych</h3>
+        <ul>
+            <li><strong>Najstarsza gra planszowa</strong>: Najstarszą znaną grą planszową jest Senet, która była popularna w starożytnym Egipcie już około 3100 roku p.n.e.</li>
+            <li><strong>Najdroższa gra planszowa</strong>: "Jewel Royale Chess Set" to najdroższa gra planszowa na świecie. Jest to zestaw szachów wykonany z czystego złota, platyny, diamentów, szmaragdów i rubinów. Wartość zestawu to około 9,8 milionów dolarów.</li>
+            <li><strong>Monopoly na Księżycu</strong>: W 1969 roku załoga Apollo 11 zabrała na Księżyc miniaturową wersję Monopoly jako formę rozrywki podczas misji.</li>
+            <li><strong>Najdłuższa rozgrywka w Monopoly</strong>: Najdłuższa rozgrywka w Monopoly trwała 70 dni.</li>
+            <li><strong>Scrabble w Braille'u</strong>: Istnieje wersja Scrabble w Braille'u, która umożliwia grę osobom niewidomym.</li>
+            <li><strong>Międzynarodowy Dzień Gier Planszowych</strong>: Międzynarodowy Dzień Gier Planszowych obchodzony jest 3 czerwca.</li>
+            <li><strong>Szachy</strong>: Szachy, wynalezione w Indiach w VI wieku, są jedną z najpopularniejszych i najbardziej szanowanych gier strategicznych na świecie.</li>
+            <li><strong>Największa kolekcja gier planszowych</strong>: Bruce Whitehill, znany również jako "The Big Game Hunter", posiada największą na świecie kolekcję gier planszowych, liczącą ponad 20 000 egzemplarzy.</li>
+        </ul>
+
+        <h3>Zawody i turnieje w gry planszowe</h3>
+        <ul>
+            <li><strong>Mistrzostwa Świata w Scrabble</strong>: Mistrzostwa Świata w Scrabble odbywają się co dwa lata i przyciągają najlepszych graczy z całego świata. Zwycięzcy tych mistrzostw często zdobywają znaczące nagrody pieniężne.</li>
+            <li><strong>Światowe Mistrzostwa w Carcassonne</strong>: Odbywające się co roku w Niemczech, te mistrzostwa gromadzą najlepszych graczy Carcassonne, którzy rywalizują o tytuł mistrza świata.</li>
+            <li><strong>Mistrzostwa Europy w Ticket to Ride</strong>: Organizowane co roku w różnych europejskich miastach, gdzie gracze z całego kontynentu rywalizują w budowaniu najdłuższych tras kolejowych.</li>
+            <li><strong>Pandemic Survival</strong>: Unikalny turniej, gdzie drużyny rywalizują w czasie rzeczywistym, grając w "Pandemic" na tych samych ustawieniach gry. Drużyna, która jako pierwsza znajdzie wszystkie lekarstwa, wygrywa.</li>
+            <li><strong>Mistrzostwa Polski w Osadników z Catanu</strong>: Coroczny turniej organizowany w Polsce, który wyłania najlepszego gracza w Osadników z Catanu. Zwycięzca często reprezentuje Polskę na mistrzostwach świata.</li>
+        </ul>
+
+        <h3>Otoczka i kultura gier planszowych</h3>
+        <ul>
+            <li><strong>Kawiarnie gier planszowych</strong>: Na całym świecie powstaje coraz więcej kawiarni gier planszowych, gdzie można wypożyczyć gry i zagrać z przyjaciółmi przy kawie lub przekąskach. Przykłady to Snakes and Lattes w Toronto i Cafe Mox w Seattle.</li>
+            <li><strong>Konwenty i festiwale gier planszowych</strong>: Popularne wydarzenia takie jak Gen Con w USA, Spiel w Niemczech i UK Games Expo w Wielkiej Brytanii przyciągają tysiące fanów gier planszowych z całego świata. To doskonałe miejsca do wypróbowania nowych gier, spotkania twórców i udziału w turniejach.</li>
+            <li><strong>Kickstarter i finansowanie społecznościowe</strong>: Kickstarter i inne platformy crowdfundingowe stały się popularnym miejscem dla twórców gier planszowych do finansowania swoich projektów. Wiele znanych gier, takich jak "Exploding Kittens" i "Gloomhaven", rozpoczęło swoją przygodę na Kickstarterze.</li>
+            <li><strong>Gry edukacyjne</strong>: Gry planszowe są coraz częściej wykorzystywane w edukacji. Przykłady to "Plague Inc." do nauki o chorobach zakaźnych i "Catan" do nauki podstaw ekonomii i zarządzania zasobami.</li>
+            <li><strong>Adaptacje cyfrowe</strong>: Wiele popularnych gier planszowych doczekało się swoich wersji cyfrowych, które można grać na komputerach, tabletach i smartfonach. Dzięki temu gracze mogą cieszyć się swoimi ulubionymi tytułami zdalnie, nawet jeśli nie mają fizycznej kopii gry.</li>
+            <li><strong>Tworzenie własnych gier</strong>: Coraz więcej osób interesuje się tworzeniem własnych gier planszowych. Wiele społeczności i grup na platformach takich jak Reddit i BoardGameGeek oferuje wsparcie, porady i recenzje dla początkujących twórców gier.</li>
+            <li><strong>Rozwój rynku gier planszowych</strong>: Rynek gier planszowych rośnie w szybkim tempie. Szacuje się, że wartość globalnego rynku gier planszowych osiągnie ponad 12 miliardów dolarów do 2023 roku. Wzrost ten jest napędzany przez rosnącą popularność gier planszowych jako formy rozrywki rodzinnej i towarzyskiej.</li>
+            <li><strong>Gry kooperacyjne</strong>: Gry kooperacyjne, takie jak "Pandemic" czy "Forbidden Island", zyskują na popularności, ponieważ promują współpracę i wspólne osiąganie celów, co jest świetnym sposobem na integrację grupy.</li>
+        </ul>
+    </div>
+    <div class="footer">
+        <p>&copy; 2024 Planszówki. Projekt strony internetowej wykonany w ramach zaliczenia przedmiotu MO: TIiSKwE na kierunku Energetyka. Autor: Bartosz Mleczko</p>
+    </div>
+    <script>
+        let can, cont;
+        window.onload = function() {
+            can = document.getElementById('myCanvas');
+            updateDateTime();
+            setInterval(updateDateTime, 1000);
+            updateVisits();
+            setInterval(updateTimeSpent, 1000);
+        }
+
+        function updateDateTime() {
+            const now = new Date();
+            document.getElementById('date').innerText = now.toLocaleDateString();
+            document.getElementById('clock').innerText = now.toLocaleTimeString();
+        }
+
+        function updateVisits() {
+            if (localStorage.getItem('visits')) {
+                localStorage.setItem('visits', Number(localStorage.getItem('visits')) + 1);
+            } else {
+                localStorage.setItem('visits', 1);
+            }
+            document.getElementById('visits').innerText = localStorage.getItem('visits');
+        }
+
+        function updateTimeSpent() {
+            let startTime = sessionStorage.getItem('startTime');
+            if (!startTime) {
+                startTime = Date.now();
+                sessionStorage.setItem('startTime', startTime);
+            }
+            const currentTime = Date.now();
+            const timeSpent = Math.floor((currentTime - startTime) / 1000); // in seconds
+            document.getElementById('time-spent').innerText = timeSpent + ' sekund';
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mapa interaktywna - Planszówki</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .map-container {
+            text-align: center;
+            position: relative;
+            width: 100%;
+            max-width: 800px;
+            margin: 20px auto;
+        }
+        .info {
+            margin-bottom: 20px;
+            font-size: 1.2em;
+        }
+        .highlight {
+            position: absolute;
+            border: 2px solid rgb(255, 255, 255);
+            pointer-events: auto;
+            box-sizing: border-box;
+        }
+        .map-container img {
+            width: 100%;
+            height: auto;
+        }
+    </style>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const infoBox = document.getElementById('info-box');
+
+            function showInfo(info) {
+                infoBox.innerText = info;
+            }
+
+            document.querySelectorAll('.highlight').forEach(area => {
+                area.addEventListener('click', function() {
+                    const areaId = this.dataset.id;
+                    switch(areaId) {
+                        case '1':
+                            showInfo('1) narysuj koło o dowolnym promieniu, takim aby było ci wygodnie rysować, nie zmieniaj rozwartości cyrkla,');
+                            break;
+                        case '2':
+                            showInfo('2) na okręgu wybierz sobie punk, zaznacz go,');
+                            break;
+                        case '3':
+                            showInfo('3) wbij nóżkę cyrkla w ten punkt i zakreśl łuk, który przetnie twoje koło (rozwartość cyrkla taka jak przed chwilą).');
+                            break;
+                        case '4':
+                            showInfo('4)Teraz wbij nóżkę cyrkla w punkt przecięcia, który powstał przed chwilą.');
+                            break;
+                        case '5':
+                            showInfo('7) Powstanie 6 punktów na okręgu.');
+                            break;
+                        case '6':
+                            showInfo('8) Połącz je ze sobą w taki sposób, aby powstające odcinki przechodziły przez środek okręgu.');
+                            break;
+                        default:
+                            showInfo('Kliknij na obszar, aby uzyskać informacje.');
+                            break;
+                    }
+                });
+            });
+        });
+    </script>
+</head>
+<body>
+    <header>
+        <h1>Planszówki</h1>
+        <p>Twoje centrum gier planszowych</p>
+    </header>
+    <nav>
+        <a href="index.html">Strona Główna</a>
+        <a href="about.html">O nas</a>
+        <a href="reviews.html">Recenzje</a>
+        <a href="contact.html">Ciekawostki</a>
+        <a href="form.html">Formularz</a>
+        <a href="table.html">Tabela</a>
+        <a href="converter.html">Przelicznik</a>
+        <a href="gallery.html">Galeria</a>
+        <a href="presentation.html">Prezentacja</a>
+        <a href="map.html">Mapa</a>
+        <a href="canvas.html">Canvas</a>
+    </nav>
+    <div class="info-bar">
+        <div>
+            <span>Data: </span><span id="date"></span>
+        </div>
+        <div>
+            <span>Zegar: </span><span id="clock"></span>
+        </div>
+        <div>
+            <span>Licznik odwiedzin: </span><span id="visits"></span>
+        </div>
+        <div>
+            <span>Czas spędzony na stronie: </span><span id="time-spent"></span>
+        </div>
+    </div>
+    <div class="container">
+        <h2>Interaktywna (mapa) dzielenia koła na równe częsci </h2>
+        <p>(o dziwo przydaje się w róznego typu grach planszowych)</p>
+        <div class="map-container">
+            <div id="info-box" class="info">
+                Kliknij na obszar mapy, aby uzyskać informacje.
+            </div>
+            <div style="position: relative;">
+                <img src="images/map.jpg" alt="Mapa">
+                <div class="highlight" data-id="1" style="left: 0%; top: 0%; width: 33.33%; height: 50%;"></div>
+                <div class="highlight" data-id="2" style="left: 33.33%; top: 0%; width: 33.33%; height: 50%;"></div>
+                <div class="highlight" data-id="3" style="left: 66.66%; top: 0%; width: 33.33%; height: 50%;"></div>
+                <div class="highlight" data-id="4" style="left: 0%; top: 50%; width: 33.33%; height: 50%;"></div>
+                <div class="highlight" data-id="5" style="left: 33.33%; top: 50%; width: 33.33%; height: 50%;"></div>
+                <div class="highlight" data-id="6" style="left: 66.66%; top: 50%; width: 33.33%; height: 50%;"></div>
+            </div>
+        </div>
+    </div>
+    <div class="footer">
+        <p>&copy; 2024 Planszówki. Projekt strony internetowej wykonany w ramach zaliczenia przedmiotu MO: TIiSKwE na kierunku Energetyka. Autor:  Bartosz Mleczko</p>
+    </div>
+    <script>
+        let can, cont;
+        window.onload = function() {
+            can = document.getElementById('myCanvas');
+            updateDateTime();
+            setInterval(updateDateTime, 1000);
+            updateVisits();
+            setInterval(updateTimeSpent, 1000);
+        }
+
+        function updateDateTime() {
+            const now = new Date();
+            document.getElementById('date').innerText = now.toLocaleDateString();
+            document.getElementById('clock').innerText = now.toLocaleTimeString();
+        }
+
+        function updateVisits() {
+            if (localStorage.getItem('visits')) {
+                localStorage.setItem('visits', Number(localStorage.getItem('visits')) + 1);
+            } else {
+                localStorage.setItem('visits', 1);
+            }
+            document.getElementById('visits').innerText = localStorage.getItem('visits');
+        }
+
+        function updateTimeSpent() {
+            let startTime = sessionStorage.getItem('startTime');
+            if (!startTime) {
+                startTime = Date.now();
+                sessionStorage.setItem('startTime', startTime);
+            }
+            const currentTime = Date.now();
+            const timeSpent = Math.floor((currentTime - startTime) / 1000); 
+            document.getElementById('time-spent').innerText = timeSpent + ' sekund';
+        }
+        </script>
+                <p>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                </p>
+</body>
+</html>

@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Planszówki - Tabela</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid #2e2a2a;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Planszówki</h1>
+        <p>Twoje centrum gier planszowych</p>
+    </header>
+    <nav>
+        <a href="index.html">Strona Główna</a>
+        <a href="about.html">O nas</a>
+        <a href="reviews.html">Recenzje</a>
+        <a href="contact.html">Ciekawostki</a>
+        <a href="form.html">Formularz</a>
+        <a href="table.html">Tabela</a>
+        <a href="converter.html">Przelicznik</a>
+        <a href="gallery.html">Galeria</a>
+        <a href="presentation.html">Prezentacja</a>
+        <a href="map.html">Mapa</a>
+        <a href="canvas.html">Canvas</a>
+    </nav>
+    <div class="info-bar">
+        <div>
+            <span>Data: </span><span id="date"></span>
+        </div>
+        <div>
+            <span>Zegar: </span><span id="clock"></span>
+        </div>
+        <div>
+            <span>Licznik odwiedzin: </span><span id="visits"></span>
+        </div>
+        <div>
+            <span>Czas spędzony na stronie: </span><span id="time-spent"></span>
+        </div>
+    </div>
+    <div class="container">
+                <h2>Godziny pracy adminów strony</h2>
+        <table border="1">
+            <thead>
+                <tr>
+                    <th rowspan="2">Lp.</th>
+                    <th rowspan="2">Nazwisko</th>
+                    <th rowspan="2">Imię</th>
+                    <th colspan="8">Godziny</th>
+                </tr>
+                <tr class="godziny">
+                    <th>8</th>
+                    <th>9</th>
+                    <th>10</th>
+                    <th>11</th>
+                    <th>12</th>
+                    <th>13</th>
+                    <th>14</th>
+                    <th>15</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1</td>
+                    <td>Mleczko</td>
+                    <td>Bartosz</td>
+                    <td colspan="6" class="praca">8:00-14:00</td>
+                    <td colspan="2" class="wolne"></td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td>Orłosęp</td>
+                    <td>Rei del Causse</td>
+                    <td colspan="2" class="wolne"></td>
+                    <td colspan="6" class="praca">10:00-16:00</td>
+                </tr>
+                <tr>
+                    <td>3</td>
+                    <td>Palivodov</td>
+                    <td>Boris</td>
+                    <td colspan="2" class="wolne"></td>
+                    <td colspan="6" class="praca">10:00-16:00</td>
+                </tr>
+                <tr>
+                    <td>4</td>
+                    <td>Olkos</td>
+                    <td>Novakos</td>
+                    <td colspan="8" class="praca">8:00-16:00</td>
+                </tr>
+                <tr>
+                    <td>5</td>
+                    <td>Natalios</td>
+                    <td>Łapotos</td>
+                    <td colspan="4" class="praca">8:00-12:00</td>
+                    <td colspan="4" class="wolne"></td>
+                </tr>
+                <tr>
+                    <td>6</td>
+                    <td>Mariannos</td>
+                    <td>Jankovic</td>
+                    <td colspan="3" class="wolne"></td>
+                    <td colspan="5" class="praca">11:00-16:00</td>
+                </tr>
+                <tr>
+                    <td>7</td>
+                    <td>Weronikos</td>
+                    <td>Waligóros</td>
+                    <td colspan="5" class="praca">8:00-13:00</td>
+                    <td colspan="3" class="wolne"></td>
+                </tr>
+                <tr>
+                    <td>8</td>
+                    <td>Zuzios</td>
+                    <td>Krasuckos</td>
+                    <td colspan="4" class="praca">8:00-12:00</td>
+                    <td colspan="4" class="wolne"></td>
+                </tr>
+                <tr>
+                    <td>9</td>
+                    <td>Jacek</td>
+                    <td>Roman</td>
+                    <td colspan="6" class="praca">8:00-14:00</td>
+                    <td colspan="2" class="wolne"></td>
+                </tr>
+                <tr>
+                    <td>10</td>
+                    <td>Roman</td>
+                    <td>Jacek</td>
+                    <td colspan="2" class="wolne"></td>
+                    <td colspan="6" class="praca">10:00-16:00</td>
+                </tr>
+            </tbody>
+        </table>
+        <h2>Lista gier planszowych</h2>
+        <table id="gamesTable"> 
+        </table>
+    </div>
+    <div class="footer">
+        <p>&copy; 2024 Planszówki. Projekt strony internetowej wykonany w ramach zaliczenia przedmiotu MO: TIiSKwE na kierunku Energetyka. Autor: Bartosz Mleczko</p>
+    </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const table = document.getElementById('gamesTable');
+            
+            const headers = ['Nazwa gry', 'Kategoria', 'Liczba graczy', 'Czas gry', 'Trudność'];
+            const games = [
+                ['Catan', 'Strategia', '3-4', '60-90 min', 'Średnia'],
+                ['Carcassonne', 'Budowanie', '2-5', '35-45 min', 'Łatwa'],
+                ['Ticket to Ride', 'Strategia', '2-5', '45-60 min', 'Łatwa'],
+                ['Pandemic', 'Kooperacyjna', '2-4', '45-60 min', 'Średnia'],
+                ['7 Cudów Świata', 'Karciana', '2-7', '30-45 min', 'Średnia'],
+                ['Splendor', 'Ekonomiczna', '2-4', '30-45 min', 'Łatwa'],
+                ['Azul', 'Strategia', '2-4', '30-45 min', 'Łatwa'],
+                ['Dixit', 'Karciana', '3-6', '30 min', 'Łatwa'],
+                ['Terraformacja Marsa', 'Strategia', '1-5', '120-180 min', 'Trudna'],
+                ['Root', 'Strategia', '2-4', '60-90 min', 'Średnia']
+            ];
+
+            const thead = table.createTHead();
+            const headerRow = thead.insertRow();
+            headers.forEach(headerText => {
+                const th = document.createElement('th');
+                th.appendChild(document.createTextNode(headerText));
+                headerRow.appendChild(th);
+            });
+
+            const tbody = table.createTBody();
+            games.forEach(game => {
+                const row = tbody.insertRow();
+                game.forEach(cellText => {
+                    const cell = row.insertCell();
+                    cell.appendChild(document.createTextNode(cellText));
+                });
+            });
+
+            function mergeCells(columnIndex) {
+                let lastValue = null;
+                let lastCell = null;
+                let rowspan = 1;
+
+                for (let i = 0; i < tbody.rows.length; i++) {
+                    const cell = tbody.rows[i].cells[columnIndex];
+                    const cellValue = cell.textContent;
+
+                    if (cellValue === lastValue) {
+                        rowspan++;
+                        cell.remove();
+                        lastCell.rowSpan = rowspan;
+                    } else {
+                        lastValue = cellValue;
+                        lastCell = cell;
+                        rowspan = 1;
+                    }
+                }
+            }
+
+            mergeCells(1);
+            mergeCells(4);
+
+            while (tbody.rows.length * headers.length < 50) {
+                const row = tbody.insertRow();
+                for (let i = 0; i < headers.length; i++) {
+                    const cell = row.insertCell();
+                    cell.appendChild(document.createTextNode(`Dane ${i + 1}`));
+                }
+            }
+        });
+        
+    </script>
+    <p></p>
+    <br>
+    <br>
+    <br>
+    <br>
+    <p></p>
+    <script>
+        let can, cont;
+        window.onload = function() {
+            can = document.getElementById('myCanvas');
+            updateDateTime();
+            setInterval(updateDateTime, 1000);
+            updateVisits();
+            setInterval(updateTimeSpent, 1000);
+        }
+
+        function updateDateTime() {
+            const now = new Date();
+            document.getElementById('date').innerText = now.toLocaleDateString();
+            document.getElementById('clock').innerText = now.toLocaleTimeString();
+        }
+
+        function updateVisits() {
+            if (localStorage.getItem('visits')) {
+                localStorage.setItem('visits', Number(localStorage.getItem('visits')) + 1);
+            } else {
+                localStorage.setItem('visits', 1);
+            }
+            document.getElementById('visits').innerText = localStorage.getItem('visits');
+        }
+
+        function updateTimeSpent() {
+            let startTime = sessionStorage.getItem('startTime');
+            if (!startTime) {
+                startTime = Date.now();
+                sessionStorage.setItem('startTime', startTime);
+            }
+            const currentTime = Date.now();
+            const timeSpent = Math.floor((currentTime - startTime) / 1000); // in seconds
+            document.getElementById('time-spent').innerText = timeSpent + ' sekund';
+        }
+        </script>
+</body>
+</html>
